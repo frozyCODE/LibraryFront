@@ -1,0 +1,114 @@
+:host {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+header {
+  border-bottom: 2px solid #eee;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+h1 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.text-muted {
+  color: #7f8c8d;
+  font-size: 0.9em;
+}
+
+/* Formulaire simple */
+.form-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button.btn-add {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+button.btn-add:hover {
+  background: #219150;
+}
+
+/* Liste de livres */
+.book-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.book-item:last-child {
+  border-bottom: none;
+}
+
+.book-info h3 {
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.book-info p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.year {
+  background: #eee;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+button.btn-delete {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+button.btn-delete:hover {
+  background: #c0392b;
+}

@@ -16,6 +16,7 @@ export class App implements OnInit {
   // Signaux pour l'état réactif
   books = signal<Book[]>([]);
   newBook: Book = { title: '', author: '', year: 2024 };
+  isEditing = false; // Mode édition ?
 
   ngOnInit() {
     this.refreshBooks();
@@ -28,16 +29,40 @@ export class App implements OnInit {
     });
   }
 
-  addBook() {
-    if (this.newBook.title && this.newBook.author) {
+  // Cette méthode gère soit l'ajout, soit la modification
+  onSubmit() {
+    if (this.isEditing && this.newBook.id) {
+      // Cas : Modification
+      this.bookService.updateBook(this.newBook.id, this.newBook).subscribe({
+        next: () => {
+          this.refreshBooks();
+          this.cancelEdit();
+        },
+        error: (err) => {
+          console.error('Erreur lors de la mise à jour :', err);
+          alert('La mise à jour a échoué. Vérifie la console (F12).');
+        }
+      });
+    } else {
+      // Cas : Ajout
       this.bookService.addBook(this.newBook).subscribe({
         next: () => {
-          this.refreshBooks(); // Recharger la liste
-          this.newBook = { title: '', author: '', year: 2024 }; // Reset formulaire
-        },
-        error: (err) => console.error('Erreur lors de l\'ajout', err)
+          this.refreshBooks();
+          this.newBook = { title: '', author: '', year: 2024 };
+        }
       });
     }
+  }
+
+  // Remplir le formulaire avec les infos du livre à modifier
+  startEdit(book: Book) {
+    this.isEditing = true;
+    this.newBook = { ...book }; // On fait une copie pour ne pas modifier l'original en direct
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+    this.newBook = { title: '', author: '', year: 2024 };
   }
 
   deleteBook(id: number | undefined) {

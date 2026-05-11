@@ -4,10 +4,10 @@
     <p class="text-muted">Gestion simple de mes livres</p>
   </header>
 
-  <!-- Formulaire d'ajout -->
+  <!-- Formulaire (Ajout ou Modification) -->
   <div class="form-card">
-    <h3>Ajouter un nouveau livre</h3>
-    <form (submit)="addBook(); $event.preventDefault()">
+    <h3>{{ isEditing ? 'Modifier le livre' : 'Ajouter un nouveau livre' }}</h3>
+    <form (submit)="onSubmit(); $event.preventDefault()">
       <div class="form-group">
         <label>Titre</label>
         <input type="text" name="title" [(ngModel)]="newBook.title" placeholder="Ex: Germinal" required>
@@ -23,7 +23,15 @@
         <input type="number" name="year" [(ngModel)]="newBook.year" required>
       </div>
 
-      <button type="submit" class="btn-add">Enregistrer</button>
+      <button type="submit" class="btn-add">
+        {{ isEditing ? 'Mettre à jour' : 'Enregistrer' }}
+      </button>
+      
+      @if (isEditing) {
+        <button type="button" (click)="cancelEdit()" class="btn-cancel" style="margin-top: 10px; background: #95a5a6; color: white; border: none; padding: 10px; width: 100%; cursor: pointer; font-weight: bold;">
+          Annuler la modification
+        </button>
+      }
     </form>
   </div>
 
@@ -37,6 +45,7 @@
         </div>
         <div class="actions">
           <span class="year">{{ book.year }}</span>
+          <button (click)="startEdit(book)" class="btn-edit" style="background: #3498db; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px;">Modifier</button>
           <button (click)="deleteBook(book.id)" class="btn-delete">Supprimer</button>
         </div>
       </div>
